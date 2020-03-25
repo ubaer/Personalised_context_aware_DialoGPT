@@ -1,6 +1,8 @@
 import random
 
 from gpt2bot.decoder import generate_response
+from database.database_wrapper import read_injected_turns
+
 
 def generateTurn(turns, prompt, max_turns_history, num_samples, model, tokenizer, config, mmi_model, mmi_tokenizer):
     # A single turn is a group of user messages and bot responses right after
@@ -8,6 +10,9 @@ def generateTurn(turns, prompt, max_turns_history, num_samples, model, tokenizer
         'user_messages': [],
         'bot_messages': []
     }
+    injected_turns = read_injected_turns()
+    turns += injected_turns
+    # todo something with injection of bot replies might go wrong
     turns.append(turn)
     turn['user_messages'].append(prompt)
     # Merge turns into a single history (don't forget EOS token)

@@ -1,0 +1,1 @@
+UPDATE "main"."inject_message" SET "injected"=1 WHERE "_rowid_"=?;

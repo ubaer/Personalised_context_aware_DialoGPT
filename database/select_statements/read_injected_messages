@@ -1,0 +1,1 @@
+SELECT * FROM inject_message WHERE injected == ?;

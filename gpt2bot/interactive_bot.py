@@ -13,13 +13,12 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 
-def run_chat(model, tokenizer, config, mmi_model=None, mmi_tokenizer=None):
+def run_chat(turns, model, tokenizer, config, mmi_model=None, mmi_tokenizer=None):
     # Parse parameters
     num_samples = config.getint('decoder', 'num_samples')
     max_turns_history = config.getint('decoder', 'max_turns_history')
 
     logger.info("Running the chatbot...")
-    turns = []
     print("Bot >>>", "Just start texting me. If I'm getting annoying, type \"Bye\". To quit the chat type \"Quit\".")
     while True:
         prompt = input("User >>> ")
@@ -38,7 +37,7 @@ def run_chat(model, tokenizer, config, mmi_model=None, mmi_tokenizer=None):
         print("Bot >>>", bot_message)
 
 
-def main():
+def main(turns):
     # Script arguments can include path of the config
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument('--config', type=str, default="gpt2bot/chatbot.cfg")
@@ -64,7 +63,7 @@ def main():
         mmi_tokenizer = None
 
     # Run chatbot with GPT-2
-    run_chat(model, tokenizer, config, mmi_model=mmi_model, mmi_tokenizer=mmi_tokenizer)
+    run_chat(turns, model, tokenizer, config, mmi_model=mmi_model, mmi_tokenizer=mmi_tokenizer)
 
 
 if __name__ == '__main__':
