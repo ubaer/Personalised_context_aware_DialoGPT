@@ -15,7 +15,7 @@ To avoid leakage to API keys the secrets file of this project is not commited. F
     # Your Telegram token. See https://core.telegram.org/bots
     telegram_token = TOKEN
     
-    # Your GIPHY API token. 
+    # Your GIPHY API token. GIPHY is used to let the bot send GIFS, not tested nor maintained in this project. Might be broken, might be not
     giphy_token = TOKEN
     ```
  - Run the main of [telegram_bot.py](https://github.com/ubaer/Personalised_context_aware_DialoGPT/blob/master/gpt2bot/telegram_bot.py) in the project main.
