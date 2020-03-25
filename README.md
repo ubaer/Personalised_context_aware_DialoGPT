@@ -1,4 +1,4 @@
-#Context aware personalised chat bot
+# Context aware personalised chat bot
 CaPchat is based on the [gpt2bot](https://github.com/polakowo/gpt2bot) telegram DialoGPT bot.
 
 ## How to use
