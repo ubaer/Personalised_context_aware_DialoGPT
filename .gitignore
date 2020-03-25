@@ -220,3 +220,4 @@ models
 torch-1.2.0-cp37-cp37m-win_amd64.whl
 /database/pythonsqlite.db
 /database/pythonsqlite.db-journal
+/secrets.cfg

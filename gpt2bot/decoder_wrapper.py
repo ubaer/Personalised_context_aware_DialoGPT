@@ -36,6 +36,7 @@ def generateTurn(turns, prompt, max_turns_history, num_samples, model, tokenizer
     if num_samples == 1:
         bot_message = bot_messages[0]
     else:
+
         # TODO: Select a message that is the most appropriate given the context
         # This way you can avoid loops
         bot_message = random.choice(bot_messages)

@@ -180,6 +180,7 @@ def main():
 
     # Read the config
     config = configparser.ConfigParser(allow_no_value=True)
+    config.read("secrets.cfg")
     with open(args.config) as f:
         config.read_file(f)
 
