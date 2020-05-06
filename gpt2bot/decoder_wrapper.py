@@ -12,9 +12,9 @@ def generateTurn(turns, prompt, max_turns_history, num_samples, model, tokenizer
     }
     injected_turns = read_injected_turns()
     turns += injected_turns
-    # todo something with injection of bot replies might go wrong
     turns.append(turn)
     turn['user_messages'].append(prompt)
+
     # Merge turns into a single history (don't forget EOS token)
     history = ""
     from_index = max(len(turns) - max_turns_history - 1, 0) if max_turns_history >= 0 else 0
@@ -36,7 +36,6 @@ def generateTurn(turns, prompt, max_turns_history, num_samples, model, tokenizer
     if num_samples == 1:
         bot_message = bot_messages[0]
     else:
-
         # TODO: Select a message that is the most appropriate given the context
         # This way you can avoid loops
         bot_message = random.choice(bot_messages)

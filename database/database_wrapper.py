@@ -76,12 +76,14 @@ def read_injected_turns():
                         'user_messages': [],
                         'bot_messages': [databaseTurn[2]]
                     }
+                    print('Bot -Injected-:' + str(databaseTurn[2]))
                     injected_turns_array.append(turn)
                 elif databaseTurn[1] is not None and databaseTurn[2] is None:
                     turn = {
                         'user_messages': [databaseTurn[1]],
                         'bot_messages': []
                     }
+                    print('User -Injected-:' + str(databaseTurn[1]))
                     injected_turns_array.append(turn)
                 execute_query_update(update_query, (databaseTurn[0],))
     return injected_turns_array
