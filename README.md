@@ -1,6 +1,6 @@
 # Context aware personalised chat bot
 CaPchat is based on the [gpt2bot](https://github.com/polakowo/gpt2bot) telegram DialoGPT bot.
-
+The android sensor collector module can be found [here](https://github.com/ubaer/CaPchat-Sensor-Information-Collector).
 ## How to use
 #### Dependencies 
 Dependencies that are required to run the bot are in [requirements.txt](https://github.com/ubaer/Personalised_context_aware_DialoGPT/blob/master/requirements.txt). Note that some virtual environments can't download torch 1.2.0, newer versions give unexpected results and should not be used! Torch 1.2.0 can be downloaded from the [official website](https://download.pytorch.org/whl/torch_stable.html) and should be installed manually through pip.
