@@ -1,0 +1,1 @@
+INSERT INTO volume_tracker(avg_amplitude, avg_decibel) VALUES(%s, %s)

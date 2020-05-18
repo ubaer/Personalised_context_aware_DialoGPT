@@ -129,7 +129,26 @@ def execute_mysql_update_query(query, parameter):
             conn.close()
 
 
-def check_and_preprare_mysql_datasbase():
+def execute_mysql_insert_query(query, parameter):
+    conn = None
+    cursor = None
+    try:
+        conn = mysql.connector.connect(user=db_username, password=db_password, host=db_host, database=db_dbname)
+        cursor = conn.cursor()
+
+        cursor.execute(query, parameter)
+        conn.commit()
+
+    except Error as e:
+        print(e)
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+
+def check_and_prepare_mysql_database():
     set_credentials()
     conn = None
     try:
