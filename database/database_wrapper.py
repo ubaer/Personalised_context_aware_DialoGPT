@@ -1,11 +1,14 @@
 import sqlite3
 from sqlite3 import Error
+import mysql.connector
+from deprecated import deprecated
 import os
 
 db_file = r"database/pythonsqlite.db"
 
 
-def create_database():
+@deprecated('MySQL database should be used instead of sqlite')
+def create_sqlite_database():
     conn = None
     try:
         conn = sqlite3.connect(db_file)
@@ -20,16 +23,16 @@ def create_database():
         if conn:
             conn.close()
 
-
-def check_and_prepare_database():
+@deprecated('MySQL database should be used instead of sqlite')
+def check_and_prepare_sqlite_database():
     try:
         f = open(db_file)
         f.close()  # If file is not found the IOError is thrown before the close
     except IOError:
-        create_database()
+        create_sqlite_database()
 
-
-def execute_query(query, parameter):
+@deprecated('MySQL database should be used instead of sqlite')
+def execute_sqlite_query(query, parameter):
     conn = None
     try:
         conn = sqlite3.connect(db_file)
@@ -41,8 +44,8 @@ def execute_query(query, parameter):
         if conn:
             conn.close()
 
-
-def execute_query_update(query, parameter):
+@deprecated('MySQL database should be used instead of sqlite')
+def execute_sqlite_query_update(query, parameter):
     conn = None
     try:
         conn = sqlite3.connect(db_file)
@@ -54,7 +57,6 @@ def execute_query_update(query, parameter):
         if conn:
             conn.close()
 
-
 def read_injected_turns():
     injected_turns_array = []
     with open("database/select_statements/read_injected_messages") as select_query_file:
@@ -62,7 +64,7 @@ def read_injected_turns():
             select_query = select_query_file.readlines()[0]
             update_query = update_query_file.readlines()[0]
 
-            turns = execute_query(select_query, (0,))
+            turns = execute_sqlite_query(select_query, (0,))
         if (len(turns) > 0):
             for databaseTurn in turns:
                 if databaseTurn[1] is None and databaseTurn[2] is None:
@@ -85,5 +87,5 @@ def read_injected_turns():
                     }
                     print('User -Injected-:' + str(databaseTurn[1]))
                     injected_turns_array.append(turn)
-                execute_query_update(update_query, (databaseTurn[0],))
+                execute_sqlite_query_update(update_query, (databaseTurn[0],))
     return injected_turns_array
