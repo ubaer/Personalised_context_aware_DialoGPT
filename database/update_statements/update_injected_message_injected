@@ -1,1 +1,1 @@
-UPDATE "main"."inject_message" SET "injected"=1 WHERE "_rowid_"=?;
+UPDATE inject_message SET injected = 1 WHERE message_id=%s

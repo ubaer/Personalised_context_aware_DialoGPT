@@ -17,12 +17,20 @@ To avoid leakage to API keys the secrets file of this project is not commited. F
     
     # Your GIPHY API token. GIPHY is used to let the bot send GIFS, not tested nor maintained in this project. Might be broken, might be not
     giphy_token = TOKEN
+  
+    # Your mysql database information.
+    db_username = USERNAME
+    db_password = PASSWORD
+    db_host = HOST_ADDRESS
+    db_dbname = inject_message
     ```
  - Run the main of [telegram_bot.py](https://github.com/ubaer/Personalised_context_aware_DialoGPT/blob/master/gpt2bot/telegram_bot.py) in the project main.
  
  ## Information about modules
   This section will be updated throughout the project.
  #### Message injection
- Currently messages can be injected through the SQLite database generated in the database folder. Run the project once for it to auto generate the database and its tables.
- Then messages can be injected by adding rows in the 'inject_message' table. Injected messages are always put in front of the next message the user sends.
- 
+Message injection is done through a mysql database. Any module that has access to this database can inject messages. The inject-message table has the following structure:<br>
+| message_id 	| user_message          	| bot_message           	| injected         	|
+|------------	|-----------------------	|-----------------------	|------------------	|
+| int(auto)  	| text (default = NULL) 	| text (default = NULL) 	| int(default = 0) 	|
+

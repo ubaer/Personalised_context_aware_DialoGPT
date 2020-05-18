@@ -1,1 +1,1 @@
-SELECT * FROM inject_message WHERE injected == ?;
+SELECT * FROM inject_message WHERE injected =0;
