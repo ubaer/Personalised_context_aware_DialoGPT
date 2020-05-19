@@ -5,7 +5,7 @@ import scipy.spatial.distance
 
 def load_fasttext_model():
     global fasttext_model
-    fasttext_model = fasttext.load_model("../models/FastText/yahoo_answers.bin")
+    fasttext_model = fasttext.load_model("models/FastText/yahoo_answers.bin")
 
 
 def calculate_sentence_mean(sentence):
@@ -27,7 +27,7 @@ def cos_similarity(data_1, data_2):
 
 def get_most_similar_sentence(baseline_sentence, other_sentences):
     baseline_sentence_mean = calculate_sentence_mean(baseline_sentence)
-
+    print("Baseline sentence: " + baseline_sentence)
     best_similarity = 0
     best_sentence = ""
 
@@ -40,10 +40,9 @@ def get_most_similar_sentence(baseline_sentence, other_sentences):
             best_sentence = sentence
     return best_sentence
 
-
-a = "How are you doing?"
-b = "I'm doing great"
-c = "I like to drive cars"
-
-load_fasttext_model()
-get_most_similar_sentence(a, {b, c})
+# a = "How are you doing?"
+# b = "I'm doing great"
+# c = "I like to drive cars"
+#
+# load_fasttext_model()
+# get_most_similar_sentence(a, {b, c})

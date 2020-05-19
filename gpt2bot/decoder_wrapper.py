@@ -2,6 +2,7 @@ import random
 
 from gpt2bot.decoder import generate_response
 from database.database_wrapper import read_injected_turns
+from gpt2bot.context_determination import get_most_similar_sentence
 
 
 def generateTurn(turns, prompt, max_turns_history, num_samples, model, tokenizer, config, mmi_model, mmi_tokenizer):
@@ -36,10 +37,9 @@ def generateTurn(turns, prompt, max_turns_history, num_samples, model, tokenizer
     if num_samples == 1:
         bot_message = bot_messages[0]
     else:
-        # TODO: Select a message that is the most appropriate given the context
-        # This way you can avoid loops
-        print(bot_messages)
-        bot_message = random.choice(bot_messages)
+        # conversation = history.replace("<|endoftext|>", ".")
+        # bot_message = random.choice(bot_messages)
+        bot_message = get_most_similar_sentence(prompt, bot_messages)
     turn['bot_messages'].append(bot_message)
 
     return bot_message, turns
