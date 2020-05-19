@@ -34,3 +34,10 @@ Message injection is done through a mysql database. Any module that has access t
 |------------	|-----------------------	|-----------------------	|------------------	|
 | int(auto)  	| text (default = NULL) 	| text (default = NULL) 	| int(default = 0) 	|
 
+#### Context determination
+##### Android
+
+##### Text mining
+Currently only [FastText](https://fasttext.cc/) is used to compare the context of sentences to determine the best response. It uses the [yahoo answers](https://fasttext.cc/docs/en/supervised-models.html) pre-trained model.
+If time allows it, I will add Word2Vect and create a system in which FastText and Word2Vect both "vote" on which reply sentence to use.
+
