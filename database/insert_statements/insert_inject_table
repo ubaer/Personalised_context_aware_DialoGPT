@@ -1,0 +1,1 @@
+INSERT INTO inject_message(user_message, bot_message) VALUES(%s, %s)

@@ -37,8 +37,7 @@ def generateTurn(turns, prompt, max_turns_history, num_samples, model, tokenizer
     if num_samples == 1:
         bot_message = bot_messages[0]
     else:
-        # conversation = history.replace("<|endoftext|>", ".")
-        # bot_message = random.choice(bot_messages)
+        # It uses only the last message that the user send, not the entire conversation
         bot_message = get_most_similar_sentence(prompt, bot_messages)
     turn['bot_messages'].append(bot_message)
 
