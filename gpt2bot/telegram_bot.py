@@ -118,7 +118,8 @@ def message(self, update, context):
         # If you still get different responses then set seed
         context.chat_data['turns'] = []
 
-    bot_message, turns = generateTurn(turns, user_message, max_turns_history, num_samples, self.model, self.tokenizer, self.config, self.mmi_model,
+    bot_message, turns = generateTurn(turns, user_message, max_turns_history, num_samples, self.model, self.tokenizer,
+                                      self.config, self.mmi_model,
                                       self.mmi_tokenizer)
 
     logger.info(f"{update.effective_message.chat_id} - Bot >>> {bot_message}")
@@ -200,6 +201,8 @@ def main():
     # Run Telegram bot
     bot = TelegramBot(model, tokenizer, config, mmi_model=mmi_model, mmi_tokenizer=mmi_tokenizer)
     bot.run_chat()
+    print("ay")
+
 
 if __name__ == '__main__':
     main()

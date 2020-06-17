@@ -6,6 +6,8 @@ import scipy.spatial.distance
 def load_fasttext_model():
     global fasttext_model
     fasttext_model = fasttext.load_model("models/FastText/yahoo_answers.bin")
+    # This is for when you want to run this file stand alone
+    #fasttext_model = fasttext.load_model("../models/FastText/yahoo_answers.bin")
 
 
 def calculate_sentence_mean(sentence):
@@ -35,9 +37,10 @@ def get_most_similar_sentence(baseline_sentence, other_sentences):
         sentence_mean = calculate_sentence_mean(sentence)
         similarity = cos_similarity(baseline_sentence_mean, sentence_mean)
         print("Similarity: '" + sentence + "' = " + str(similarity))
-        if (best_similarity < similarity):
-            best_similarity = similarity
-            best_sentence = sentence
+        if(similarity != 1):
+            if (best_similarity < similarity):
+                best_similarity = similarity
+                best_sentence = sentence
     return best_sentence
 
 # a = "How are you doing?"

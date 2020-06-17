@@ -1,6 +1,10 @@
+import argparse
+
 from flask import request, url_for
 from flask_api import FlaskAPI, status, exceptions
+from telegram.ext import Updater
 from database.database_wrapper import execute_mysql_insert_query, set_credentials
+import configparser
 
 app = FlaskAPI(__name__)
 
@@ -33,11 +37,22 @@ def add_inject_message():
 
             set_credentials()
             query = insert_query.readlines()[0]
+            updater.bot.send_message(chat_id=active_chat_id, text=bot_message)
             execute_mysql_insert_query(query, (user_message, bot_message))
-
     return ""
 
 
 if __name__ == "__main__":
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument('--config', type=str, default="gpt2bot/chatbot.cfg")
+    args = arg_parser.parse_args()
+    config = configparser.ConfigParser(allow_no_value=True)
+    config.read("secrets.cfg")
+    with open(args.config) as f:
+        config.read_file(f)
+
+    updater = Updater(token=config.get('chatbot', 'telegram_token'), use_context=True)
+    active_chat_id = config.get('chatbot', 'active_chat_id')
+
     # setting host is required to publish the API to your local network
     app.run(debug=True, host='0.0.0.0')
