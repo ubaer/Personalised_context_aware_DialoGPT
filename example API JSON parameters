@@ -1,0 +1,11 @@
+# Inject message
+{
+    "bot_message":"this is an injection test message"
+}
+
+# Add message to history
+{
+    "sender":"bot",
+    "injected":"0",
+    "message":"this is a history test message"
+}

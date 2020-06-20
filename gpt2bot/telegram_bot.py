@@ -16,6 +16,7 @@ import re
 
 from gpt2bot.model import download_model_folder, download_reverse_model_folder, load_model
 from gpt2bot.decoder_wrapper import generateTurn
+from gpt2bot.api_wrapper import new_chat, add_message_to_chat_history
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -104,10 +105,14 @@ def message(self, update, context):
     turns = context.chat_data['turns']
 
     user_message = update.message.text
+    add_message_to_chat_history('user', 0, user_message)
+
     if user_message.lower() == 'bye':
         # Restart chat
         context.chat_data['turns'] = []
         update.message.reply_text("Bye")
+        add_message_to_chat_history('bot', 0, "Bye")
+        new_chat()
         return None
     return_gif = False
     if '@gif' in user_message:
@@ -130,6 +135,7 @@ def message(self, update, context):
     else:
         # Return response as text
         update.message.reply_text(bot_message)
+        add_message_to_chat_history('bot', 0, bot_message)
 
 
 def error(update, context):

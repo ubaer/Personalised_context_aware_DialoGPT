@@ -5,6 +5,7 @@ import configparser
 import argparse
 import logging
 
+from gpt2bot.api_wrapper import new_chat
 from gpt2bot.model import download_model_folder, download_reverse_model_folder, load_model
 from gpt2bot.decoder_wrapper import generateTurn
 
@@ -29,11 +30,13 @@ def run_chat(model, tokenizer, config, mmi_model=None, mmi_tokenizer=None):
         if prompt.lower() == 'bye':
             print("Bot >>>", "Bye")
             turns = []
+            new_chat()
             continue
         if prompt.lower() == 'quit':
             break
 
-        bot_message, turns = generateTurn(turns, prompt, max_turns_history, num_samples, model, tokenizer, config, None,None)
+        bot_message, turns = generateTurn(turns, prompt, max_turns_history, num_samples, model, tokenizer, config, None,
+                                          None)
 
         print("Bot >>>", bot_message)
 

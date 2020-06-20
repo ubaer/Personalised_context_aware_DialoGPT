@@ -203,3 +203,17 @@ def read_injected_turns():
                     injected_turns_array.append(turn)
                 execute_mysql_update_query(update_query, (databaseTurn[0],))
     return injected_turns_array
+
+
+def get_current_chat_id():
+    with open("database/select_statements/read_max_chat_id") as select_query_file:
+        select_query = select_query_file.readlines()[0]
+        max_chat_id = execute_mysql_select_query(select_query, ())
+        chat_id = max_chat_id[0][0]
+    return chat_id
+
+
+def insert_chat_history_message(chat_id, sender, injected, message):
+    with open("database/insert_statements/insert_chat_history_message") as insert_query:
+        query = insert_query.readlines()[0]
+        execute_mysql_insert_query(query, (chat_id, sender, injected, message))
