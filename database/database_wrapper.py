@@ -217,3 +217,9 @@ def insert_chat_history_message(chat_id, sender, injected, message):
     with open("database/insert_statements/insert_chat_history_message") as insert_query:
         query = insert_query.readlines()[0]
         execute_mysql_insert_query(query, (chat_id, sender, injected, message))
+
+
+def insert_user_profile(key, value):
+    with open("database/insert_statements/insert_user_profile") as insert_query:
+        query = insert_query.readlines()[0]
+        execute_mysql_insert_query(query, (key, value))

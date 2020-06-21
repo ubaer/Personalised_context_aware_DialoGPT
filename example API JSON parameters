@@ -9,3 +9,12 @@
     "injected":"0",
     "message":"this is a history test message"
 }
+
+# An inject messages from which we expect a user reply
+{
+   "bot_message":"What's your name?"
+}
+
+{
+   "bot_message":"Which country are you from?"
+}

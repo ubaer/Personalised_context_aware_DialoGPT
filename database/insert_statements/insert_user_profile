@@ -1,0 +1,1 @@
+INSERT INTO user_profile(key_column, value_column)VALUES(%s, %s)
