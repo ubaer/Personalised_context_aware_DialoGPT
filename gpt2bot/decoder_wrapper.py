@@ -2,7 +2,7 @@ import random
 
 from gpt2bot.decoder import generate_response
 from database.database_wrapper import read_injected_turns
-from gpt2bot.context_determination import get_most_similar_sentence
+from gpt2bot.context_determination import get_most_similar_sentence_fasttext
 
 
 def generateTurn(turns, prompt, max_turns_history, num_samples, model, tokenizer, config, mmi_model, mmi_tokenizer):
@@ -38,7 +38,7 @@ def generateTurn(turns, prompt, max_turns_history, num_samples, model, tokenizer
         bot_message = bot_messages[0]
     else:
         # It uses only the last message that the user send, not the entire conversation
-        bot_message = get_most_similar_sentence(prompt, bot_messages)
+        bot_message = get_most_similar_sentence_fasttext(prompt, bot_messages)
     turn['bot_messages'].append(bot_message)
 
     return bot_message, turns

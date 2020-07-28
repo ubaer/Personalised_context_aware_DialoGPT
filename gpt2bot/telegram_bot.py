@@ -18,6 +18,9 @@ from gpt2bot.model import download_model_folder, download_reverse_model_folder, 
 from gpt2bot.decoder_wrapper import generateTurn
 from gpt2bot.api_wrapper import new_chat, add_message_to_chat_history
 
+# Rule based chat system
+from rulebased_bot.rulebased_bot import check_message_intent
+
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -66,7 +69,6 @@ def translate_message_to_gif(message, config):
 def self_decorator(self, func):
     """Passes bot object to func command."""
 
-    # TODO: Any other ways to pass variables to handlers?
     def command_func(update, context, *args, **kwargs):
         return func(self, update, context, *args, **kwargs)
 
@@ -114,26 +116,22 @@ def message(self, update, context):
         add_message_to_chat_history('bot', 0, "Bye")
         new_chat()
         return None
-    return_gif = False
-    if '@gif' in user_message:
-        # Return gif
-        return_gif = True
-        user_message = user_message.replace('@gif', '').strip()
-    if max_turns_history == 0:
-        # If you still get different responses then set seed
-        context.chat_data['turns'] = []
 
-    bot_message, turns = generateTurn(turns, user_message, max_turns_history, num_samples, self.model, self.tokenizer,
-                                      self.config, self.mmi_model,
-                                      self.mmi_tokenizer)
+    rule_based_response = check_message_intent(user_message.lower())
 
-    logger.info(f"{update.effective_message.chat_id} - Bot >>> {bot_message}")
-    if return_gif:
-        # Return response as GIF
-        gif_url = translate_message_to_gif(bot_message, self.config)
-        context.bot.send_animation(update.effective_message.chat_id, gif_url)
-    else:
-        # Return response as text
+    # If
+    if rule_based_response is "":
+        if max_turns_history == 0:
+            # If you still get different responses then set seed
+            context.chat_data['turns'] = []
+
+        bot_message, turns = generateTurn(turns, user_message, max_turns_history, num_samples, self.model,
+                                          self.tokenizer,
+                                          self.config, self.mmi_model,
+                                          self.mmi_tokenizer)
+
+        logger.info(f"{update.effective_message.chat_id} - Bot >>> {bot_message}")
+
         update.message.reply_text(bot_message)
         add_message_to_chat_history('bot', 0, bot_message)
 
@@ -207,7 +205,6 @@ def main():
     # Run Telegram bot
     bot = TelegramBot(model, tokenizer, config, mmi_model=mmi_model, mmi_tokenizer=mmi_tokenizer)
     bot.run_chat()
-    print("ay")
 
 
 if __name__ == '__main__':

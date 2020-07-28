@@ -119,7 +119,7 @@ if __name__ == "__main__":
     # Database chat_id
     current_chat_id = get_current_chat_id()
 
-    expect_user_information = False
+    expect_user_information = None
 
     # setting host is required to publish the API to your local network
     app.run(debug=True, host='0.0.0.0')

@@ -1,0 +1,9 @@
+{
+  "greet": [
+    "Hey, how are you feeling today?",
+    "Hello, how are you?"
+  ],
+  "default": [
+    "Default response"
+  ]
+}
