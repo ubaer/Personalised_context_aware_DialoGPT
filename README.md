@@ -36,8 +36,13 @@ Message injection is done through a mysql database. Any module that has access t
 
 #### Context determination
 ##### Android
-
+The android app can be used to extract information from a mobile phone and push it to the user profile. 
 ##### Text mining
-Currently only [FastText](https://fasttext.cc/) is used to compare the context of sentences to determine the best response. It uses the [yahoo answers](https://fasttext.cc/docs/en/supervised-models.html) pre-trained model.
-If time allows it, I will add Word2Vect and create a system in which FastText and Word2Vect both "vote" on which reply sentence to use.
-
+Currently  [FastText](https://fasttext.cc/) is used to compare the context of sentences to determine the best response. It uses the [yahoo answers](https://fasttext.cc/docs/en/supervised-models.html) pre-trained model.
+[spaCy](https://spacy.io/) is used to extract user information live during the conversation. In the current version only the name and origin country from the user is extracted. The user profile data is saved in the database table which is structured as follows:<br>
+| id 	        | key_column          	    | value_column           	| 
+|------------	|-----------------------	|-----------------------	|
+| int(auto)  	| text (default = NULL) 	| text (default = NULL) 	| 
+<br>
+By using a key-value system the table structure, and thus the database structure, doesn't have to change when more modules are added or additional information is required. Any module can request information. If the requested key is not present, the requested information is unknown and the module can act accordingly.
+##### Rule based chat bot
