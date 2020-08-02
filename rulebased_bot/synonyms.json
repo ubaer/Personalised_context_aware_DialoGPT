@@ -3,9 +3,33 @@
     "hello",
     "hey",
     "hi",
-    "welcome",
     "bonjour",
     "good day",
     "heey"
+  ],
+  "name_remember": [
+    "remember my name?",
+    "remember what my name is?",
+    "know what my name is?",
+    "know my name?"
+  ],
+  "request_name": [
+    "EMPTY_INSERT_DONT_USE"
+  ],
+  "feelings_positive": [
+    "feeling happy",
+    "feeling great",
+    "feeling amazing",
+    "feel happy",
+    "feel great",
+    "feel amazing"
+  ],
+  "feelings_negative": [
+    "feeling bad",
+    "feeling angry",
+    "feeling sad",
+    "feel bad",
+    "feel angry",
+    "feel sad"
   ]
 }

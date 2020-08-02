@@ -1,0 +1,1 @@
+SELECT value_column FROM user_profile WHERE key_column = 'Name' ORDER BY id DESC LIMIT 1

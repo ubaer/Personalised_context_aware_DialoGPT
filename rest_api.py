@@ -11,8 +11,10 @@ import configparser
 
 app = FlaskAPI(__name__)
 
-user_profile_messages = {'What\'s your name?': "Name",
-                         'What\'s your origin country?': "Country"}
+user_profile_messages = {'What\'s your name?': 'Name',
+                         'Hey! What\'s your name?': 'Name',
+                         'I don\t know your name yet, what is it?': 'Name',
+                         'What\'s your origin country?': 'Country'}
 
 
 @app.route("/avg_volume/", methods=['GET', 'POST'])

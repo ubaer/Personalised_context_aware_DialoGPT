@@ -1,7 +1,7 @@
 import random
 
 from gpt2bot.decoder import generate_response
-from database.database_wrapper import read_injected_turns
+from database.database_wrapper import get_injected_turns
 from gpt2bot.context_determination import get_most_similar_sentence_fasttext
 
 
@@ -11,7 +11,7 @@ def generateTurn(turns, prompt, max_turns_history, num_samples, model, tokenizer
         'user_messages': [],
         'bot_messages': []
     }
-    injected_turns = read_injected_turns()
+    injected_turns = get_injected_turns()
     turns += injected_turns
     turns.append(turn)
     turn['user_messages'].append(prompt)

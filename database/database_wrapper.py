@@ -162,7 +162,7 @@ def check_and_prepare_mysql_database():
             conn.close()
 
 
-def read_injected_turns():
+def get_injected_turns():
     injected_turns_array = []
     with open("database/select_statements/read_injected_messages") as select_query_file:
         with open("database/update_statements/update_injected_message_injected") as update_query_file:
@@ -171,7 +171,7 @@ def read_injected_turns():
 
             # turns = execute_sqlite_query(select_query, (0,))
             turns = execute_mysql_select_query(select_query, ())
-        if (len(turns) > 0):
+        if len(turns) > 0:
             for databaseTurn in turns:
                 if databaseTurn[1] is None and databaseTurn[2] is None:
                     turn = {
@@ -223,3 +223,16 @@ def insert_user_profile(key, value):
     with open("database/insert_statements/insert_user_profile") as insert_query:
         query = insert_query.readlines()[0]
         execute_mysql_insert_query(query, (key, value))
+
+
+def get_user_profile_name():
+    with open("database/select_statements/read_profile_name") as select_query_file:
+        select_query = select_query_file.readlines()[0]
+        profile_name = execute_mysql_select_query(select_query, ())
+        # Check if list is empty
+        if profile_name:
+            profile_name = profile_name[0][0]
+        else:
+            profile_name = ''
+
+    return profile_name

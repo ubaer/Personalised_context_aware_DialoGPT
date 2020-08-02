@@ -14,6 +14,5 @@ new_chat()
 
 main()
 
-#   van SQL naar Rest API gaan?
 #   Context aan berichten history grote als parameter maken
 #   Aantal berichten dat door het GTP2 model worden gegenereerd als parameter maken

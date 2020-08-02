@@ -19,10 +19,11 @@ def add_message_to_chat_history(sender, injected, message):
     print("Post request status code = " + str(request.status_code))
 
 
-def inject_bot_message(message):
+def inject_bot_message(bot_message, user_message):
     endpoint = 'http://localhost:5000/inject_message/'
     data = {
-        "bot_message": message,
+        "bot_message": bot_message,
+        "user_message": user_message
     }
 
     request = requests.post(url=endpoint, data=data)

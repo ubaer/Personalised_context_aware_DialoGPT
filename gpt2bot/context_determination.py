@@ -38,6 +38,7 @@ def get_most_similar_sentence_fasttext(baseline_sentence, other_sentences):
         similarity = cos_similarity(baseline_sentence_mean, sentence_mean)
         print("Similarity: '" + sentence + "' = " + str(similarity))
         if (similarity != 1):
+
             if (best_similarity < similarity):
                 best_similarity = similarity
                 best_sentence = sentence

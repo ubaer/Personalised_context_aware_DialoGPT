@@ -1,9 +1,32 @@
 {
-  "greet": [
-    "Hey, how are you feeling today?",
-    "Hello, how are you?"
+  "name_remember": [
+    "Your name is ",
+    "You are",
+    "You told me your name is ",
+    "I remember your name being "
   ],
-  "default": [
-    "Default response"
+  "request_name": [
+    "Hey! What's your name?",
+    "Hello, what's your name?"
+  ],
+  "hello": [
+    [
+      "Hey ",
+      ", how are you feeling today?"
+    ],
+    [
+      "Hello ",
+      ", how are you?"
+    ],
+    [
+      "Good day ",
+      ", what's going on?"
+    ]
+  ],
+  "feelings_positive": [
+    "That's great to hear! What made you feel this way?"
+  ],
+  "feelings_negative": [
+    "I'm sorry you feel that way."
   ]
 }
