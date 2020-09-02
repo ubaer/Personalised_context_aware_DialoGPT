@@ -1,5 +1,6 @@
 import spacy
 
+# if "Can't find model 'en_core_web_sm'" download it by using: python -m spacy download en_core_web_sm
 nlp = spacy.load("en_core_web_sm")
 
 

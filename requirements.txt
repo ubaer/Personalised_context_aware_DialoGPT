@@ -6,3 +6,5 @@ fasttext==0.9.2
 urllib3~=1.25.8
 mysql-connector-python~=8.0.18
 deprecated~=1.2.7
+spacy
+Flask-API
