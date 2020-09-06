@@ -236,3 +236,32 @@ def get_user_profile_name():
             profile_name = ''
 
     return profile_name
+
+
+def get_weather_timestamp():
+    with open("database/select_statements/read_weather_timestamp") as select_query_file:
+        select_query = select_query_file.readlines()[0]
+        timestamp = execute_mysql_select_query(select_query, ())
+
+        # Check if list is empty
+        if timestamp:
+            timestamp = timestamp[0][0]
+        else:
+            timestamp = None
+    return timestamp
+
+
+def get_weather_information():
+    weather_info = [None, None]
+    with open("database/select_statements/read_weather_type") as select_query_file:
+        select_query = select_query_file.readlines()[0]
+        weather_type = execute_mysql_select_query(select_query, ())
+
+        if weather_type:
+            weather_type = weather_type[0][0]
+            with open("database/select_statements/read_weather_temp") as select_query_file:
+                select_query = select_query_file.readlines()[0]
+                weather_temp = execute_mysql_select_query(select_query, ())[0][0]
+            weather_info = [weather_type, weather_temp]
+
+    return weather_info

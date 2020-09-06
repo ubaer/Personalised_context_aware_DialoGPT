@@ -31,5 +31,15 @@
     "feel bad",
     "feel angry",
     "feel sad"
+  ],
+  "weather_type": [
+    "weather today",
+    "current weather",
+    "weather like today",
+    "weather like currently",
+    "weather at the moment"
+  ],
+  "weather_temp": [
+    "current temperature"
   ]
 }

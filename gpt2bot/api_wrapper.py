@@ -1,3 +1,5 @@
+import json
+
 import requests
 
 
@@ -28,3 +30,12 @@ def inject_bot_message(bot_message, user_message):
 
     request = requests.post(url=endpoint, data=data)
     print("Post request status code = " + str(request.status_code))
+
+
+# returns a tuple containing the near-to-realtime weather in the following format: [weather_info, weather_temperature]
+def request_weather_information():
+    endpoint = 'http://localhost:5000/request_weather/'
+    request = requests.get(url=endpoint)
+    json_object = json.loads(request.text)
+
+    return [json_object["weather_type"], json_object["temperature"]]

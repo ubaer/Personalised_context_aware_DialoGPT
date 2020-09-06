@@ -5,9 +5,11 @@ from flask_api import FlaskAPI
 from telegram.ext import Updater
 from database.database_wrapper import execute_mysql_insert_query, set_credentials, get_current_chat_id, \
     insert_chat_history_message, insert_user_profile
-from user_profiler.spacy_extractor import extract_person, extract_country
+from knowledge_base.spacy_knowledge_extractor import extract_person, extract_country
 
 import configparser
+
+from knowledge_base.weather_api import request_weather_info
 
 app = FlaskAPI(__name__)
 
@@ -67,6 +69,7 @@ def new_conversation():
         set_credentials()
         current_chat_id = get_current_chat_id() + 1
         print(current_chat_id)
+
     return {'chat_id': current_chat_id}
 
 
@@ -82,6 +85,18 @@ def add_message_to_history():
         if expect_user_information != None:
             user_profile_options[expect_user_information](message)
     return ""
+
+
+@app.route("/request_weather/", methods=['GET'])
+def request_weather():
+    weather_type = ''
+    temperature = ''
+    if request.method == 'GET':
+        info = request_weather_info()
+        weather_type = info[0]
+        temperature = info[1]
+    return {'weather_type': weather_type,
+            'temperature': temperature}
 
 
 def user_profile_name(message):

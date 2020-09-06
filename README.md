@@ -23,6 +23,9 @@ To avoid leakage to API keys the secrets file of this project is not commited. F
     db_password = PASSWORD
     db_host = HOST_ADDRESS
     db_dbname = inject_message
+  
+    # External APIs
+    openweathermap = API_KEY
     ```
  - Run the main of [telegram_bot.py](https://github.com/ubaer/Personalised_context_aware_DialoGPT/blob/master/gpt2bot/telegram_bot.py) in the project main.
  

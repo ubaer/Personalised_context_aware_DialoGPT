@@ -2,7 +2,7 @@ import random
 
 import nltk
 import json
-from gpt2bot.api_wrapper import inject_bot_message
+from gpt2bot.api_wrapper import inject_bot_message, request_weather_information
 from database.database_wrapper import get_user_profile_name
 import re
 
@@ -88,6 +88,18 @@ def check_message_intent(message):
             else:
                 response = random.sample(responses[matched_intent], 1)[0]
                 reply_message = str(response[0]) + name + str(response[1])
+        elif matched_intent == 'weather_type':
+            # using [0] as this is the weather_info
+            current_weather_type = request_weather_information()[0]
+
+            response = random.sample(responses[matched_intent], 1)[0]
+            reply_message = str(response[0]) + current_weather_type + str(response[1])
+        elif matched_intent == 'weather_temp':
+            # using [1] as this is the weather_info
+            current_weather_temp = request_weather_information()[1]
+
+            response = random.sample(responses[matched_intent], 1)[0]
+            reply_message = str(response) + str(current_weather_temp) + '°C'
         else:
             # todo instead of random use history of send messages to pick one that isn't used yet
             reply_message = str(random.sample(responses[matched_intent], 1)[0])

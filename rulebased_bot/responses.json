@@ -28,5 +28,16 @@
   ],
   "feelings_negative": [
     "I'm sorry you feel that way."
+  ],
+  "weather_type": [
+    [
+      "I see ",
+      " outside"
+    ]
+  ],
+  "weather_temp": [
+    "It's currently ",
+    "The temperature is ",
+    "My thermometer reads "
   ]
 }
