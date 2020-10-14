@@ -14,7 +14,8 @@ To avoid leakage to API keys the secrets file of this project is not commited. F
   [chatbot]
     # Your Telegram token. See https://core.telegram.org/bots
     telegram_token = TOKEN
-    
+    active_chat_id = TELEGRAM_CHAT_ID_OF_CHAT
+  
     # Your GIPHY API token. GIPHY is used to let the bot send GIFS, not tested nor maintained in this project. Might be broken, might be not
     giphy_token = TOKEN
   
