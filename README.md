@@ -56,7 +56,7 @@ In an effort to unify the way in which this type of data can be saved it is also
 - The document present in the mongoDB database is in json format
 - The document is uniquely identified by the telegram chat id of the specific user
 - Modules should not give different meaning to keys that are already in use. Example: "name" is in this project used for the name of the interlocutor, another module should not change this value to anything other than the interlocutors name.
-A mongoDB knowledge base entry example can be found [in the database folder](https://github.com/ubaer/Personalised_context_aware_DialoGPT/blob/master/database/knowledge_base_entry_example.json).
+
 ##### Weather API
 The weather API module is a great example of how external information can influence the chat bot.
 The rule based bot is triggered by questions about weather which it can answer using real-time data provided by openweathermap. 
