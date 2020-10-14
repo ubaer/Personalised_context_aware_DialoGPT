@@ -56,7 +56,8 @@ In an effort to unify the way in which this type of data can be saved it is also
 - The document present in the mongoDB database is in json format
 - The document is uniquely identified by the telegram chat id of the specific user
 - Modules should not give different meaning to keys that are already in use. Example: "name" is in this project used for the name of the interlocutor, another module should not change this value to anything other than the interlocutors name.
-A mongoDB knowledge base entry example can be found [here](database/knowledge_base_entry_example.json).
+A mongoDB knowledge base entry example can be found [here](https://github.com/ubaer/Personalised_context_aware_DialoGPT/blob/master/database/knowledge_base_entry_example.json).
+
 ##### Weather API
 The weather API module is a great example of how external information can influence the chat bot.
 The rule based bot is triggered by questions about weather which it can answer using real-time data provided by openweathermap. 
@@ -64,6 +65,6 @@ When the conversation continues and the rule based bot has no sufficient answers
 The weather API modules claims the knowledge base keys: "weather_type" and "weather_temp".
 ##### Rule based chat bot
 To make the rule based bot as modular as possible a basic and simple approach has been chosen.
-The bot is triggered by any word or phrase that is defined in the [synonyms.json](rulebased_bot/synonyms.json). 
-Then the logic in [rulebased_bot.py](rulebased_bot/rulebased_bot.py) prepares the reply based on the category the user message belongs to.
-This can be as simple as replying a random response from the identical category in [responses.json](rulebased_bot/responses.json) or more complex by first gathering the relevant information from the knowledge base and then construct an appropriate reply.
+The bot is triggered by any word or phrase that is defined in the [synonyms.json](https://github.com/ubaer/Personalised_context_aware_DialoGPT/blob/master/rulebased_bot/synonyms.json). 
+Then the logic in [rulebased_bot.py](https://github.com/ubaer/Personalised_context_aware_DialoGPT/blob/master/rulebased_bot/rulebased_bot.py) prepares the reply based on the category the user message belongs to.
+This can be as simple as replying a random response from the identical category in [responses.json](https://github.com/ubaer/Personalised_context_aware_DialoGPT/blob/master/rulebased_bot/responses.json) or more complex by first gathering the relevant information from the knowledge base and then construct an appropriate reply.
