@@ -41,4 +41,5 @@ def generateTurn(turns, prompt, max_turns_history, num_samples, model, tokenizer
         bot_message = get_most_similar_sentence_fasttext(prompt, bot_messages)
     turn['bot_messages'].append(bot_message)
 
+    print(turns)
     return bot_message, turns

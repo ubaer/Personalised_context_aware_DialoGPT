@@ -36,7 +36,6 @@
     ]
   ],
   "weather_temp": [
-    "The temperature is ",
-    "My thermometer reads "
+    "The temperature is "
   ]
 }

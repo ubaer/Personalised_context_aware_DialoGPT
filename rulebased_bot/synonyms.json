@@ -40,6 +40,8 @@
     "weather at the moment"
   ],
   "weather_temp": [
-    "current temperature"
+    "current temperature",
+    "temperature like today",
+    "temperature today"
   ]
 }
