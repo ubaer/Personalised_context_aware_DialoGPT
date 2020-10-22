@@ -39,3 +39,14 @@ def request_weather_information():
     json_object = json.loads(request.text)
 
     return [json_object["weather_type"], json_object["temperature"]]
+
+
+def add_attribute_to_knowledge_base(key, value):
+    endpoint = 'http://localhost:5000/add_knowledge_base/'
+    data = {
+        "key": key,
+        "value": value
+    }
+
+    request = requests.post(url=endpoint, data=data)
+    print("Post request status code = " + str(request.status_code))

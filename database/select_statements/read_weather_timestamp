@@ -1,1 +1,1 @@
-SELECT timestamp FROM user_profile WHERE key_column = 'weather_type' ORDER BY id DESC LIMIT 1
+SELECT timestamp FROM user_profile WHERE key_column = 'weather_temp' ORDER BY id DESC LIMIT 1

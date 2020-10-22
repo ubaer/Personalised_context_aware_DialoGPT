@@ -99,6 +99,16 @@ def request_weather():
             'temperature': temperature}
 
 
+# todo should be changed if mongo db knowledge base is used
+@app.route("/add_knowledge_base/", methods=['GET', 'POST'])
+def add_attribute_to_knowledge_base():
+    if request.method == 'POST':
+        key = request.data.get('key', '')
+        value = request.data.get('value', '')
+        if key is not None:
+            insert_user_profile(key, value)
+
+
 def user_profile_name(message):
     global expect_user_information
     name = extract_person(message)
