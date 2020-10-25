@@ -50,3 +50,17 @@ def add_attribute_to_knowledge_base(key, value):
 
     request = requests.post(url=endpoint, data=data)
     print("Post request status code = " + str(request.status_code))
+
+
+def save_auto_experiment_chat(send_1, reply_1, manipulated_variable, send_2, reply_2):
+    endpoint = 'http://localhost:5000/save_auto_experiment_chat/'
+    data = {
+        "send_1": send_1,
+        "reply_1": reply_1,
+        "manipulated_variable": manipulated_variable,
+        "send_2": send_2,
+        "reply_2": reply_2
+    }
+
+    request = requests.post(url=endpoint, data=data)
+    print("Post request status code = " + str(request.status_code))

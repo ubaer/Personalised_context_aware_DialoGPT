@@ -4,7 +4,7 @@ from flask import request
 from flask_api import FlaskAPI
 from telegram.ext import Updater
 from database.database_wrapper import execute_mysql_insert_query, set_credentials, get_current_chat_id, \
-    insert_chat_history_message, insert_user_profile
+    insert_chat_history_message, insert_user_profile, insert_auto_experiment_chat
 from knowledge_base.spacy_knowledge_extractor import extract_person, extract_country
 
 import configparser
@@ -87,6 +87,18 @@ def add_message_to_history():
     return ""
 
 
+@app.route("/save_auto_experiment_chat/", methods=['GET', 'POST'])
+def save_auto_experiment_chat():
+    if request.method == 'POST':
+        send_1 = request.data.get('send_1', '')
+        reply_1 = request.data.get('reply_1', '')
+        manipulated_variable = request.data.get('manipulated_variable', '')
+        send_2 = request.data.get('send_2', '')
+        reply_2 = request.data.get('reply_2', '')
+        insert_auto_experiment_chat(send_1, reply_1, manipulated_variable, send_2, reply_2)
+    return ""
+
+
 @app.route("/request_weather/", methods=['GET'])
 def request_weather():
     weather_type = ''
@@ -103,10 +115,11 @@ def request_weather():
 @app.route("/add_knowledge_base/", methods=['GET', 'POST'])
 def add_attribute_to_knowledge_base():
     if request.method == 'POST':
-        key = request.data.get('key', '')
-        value = request.data.get('value', '')
-        if key is not None:
-            insert_user_profile(key, value)
+        key_1 = request.data.get('key', '')
+        value_1 = request.data.get('value', '')
+        if key_1 is not None:
+            insert_user_profile(key_1, value_1)
+    return ""
 
 
 def user_profile_name(message):

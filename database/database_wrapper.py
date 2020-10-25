@@ -225,6 +225,13 @@ def insert_user_profile(key, value):
         execute_mysql_insert_query(query, (key, value))
 
 
+def insert_auto_experiment_chat(send_1, reply_1, manipulated_variable, send_2, reply_2):
+    with open("database/insert_statements/insert_auto_experiment_chat") as insert_query:
+        query = insert_query.readlines()[0]
+        execute_mysql_insert_query(query, (send_1, reply_1, manipulated_variable, send_2, reply_2))
+    return None
+
+
 def get_user_profile_name():
     with open("database/select_statements/read_profile_name") as select_query_file:
         select_query = select_query_file.readlines()[0]

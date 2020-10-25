@@ -1,0 +1,1 @@
+INSERT INTO auto_experiment_chats(send_1, reply_1, manipulated_variable_value, send_2, reply_2) VALUES(%s, %s, %s, %s, %s)

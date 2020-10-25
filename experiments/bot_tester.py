@@ -2,7 +2,7 @@ import configparser
 
 from telethon import events
 from telethon.sync import TelegramClient
-from gpt2bot.api_wrapper import add_attribute_to_knowledge_base
+from gpt2bot.api_wrapper import add_attribute_to_knowledge_base, save_auto_experiment_chat
 
 session_name = 'bot_testing_session'
 bot_username = ''
@@ -45,17 +45,23 @@ def update_temperature():
 async def msg_recieved_handle(event):
     global conversation_state
     global loop_count
-    global message_string
+    global reply_1
+    global reply_2
 
     if conversation_state == 'temp_request':
         conversation_state = 'end_request'
+        reply_1 = event.message.message
         await client.send_message(bot_username, message2)
 
     elif conversation_state == 'end_request':
         conversation_state = 'end_received'
+        reply_2 = event.message.message
+
         await client.send_message(bot_username, message_bye)
 
     elif conversation_state == 'end_received':
+        save_auto_experiment_chat(message1, reply_1, temperature, message2, reply_2)
+        print('send request')
         loop_count = loop_count + 1
         print('Loop ' + str(loop_count) + ' completed')
         update_temperature()
@@ -64,13 +70,15 @@ async def msg_recieved_handle(event):
             await client.send_message(bot_username, message1)
 
 
-message1 = 'What\'s the temperature today?'
+message1 = 'What\'s the current temperature?'
 message2 = 'Is it freezing?'
+reply_1 = ''
+reply_2 = ''
 message_bye = 'Bye'
 
 temperature = 80
-temperature_decrease_amount = 30
-loop_desired_count = 5
+temperature_decrease_amount = 2
+loop_desired_count = 2
 
 add_attribute_to_knowledge_base('weather_temp', temperature)
 
