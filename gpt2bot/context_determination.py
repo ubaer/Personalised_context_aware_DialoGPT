@@ -2,6 +2,15 @@ import fasttext
 import numpy as np
 import scipy.spatial.distance
 
+# Punishment/reward system for containing a word/phrase in the generated response
+# This can be used to exclude words as 'subreddit'. The word is overrepresented by training the model on reddit comments
+# Tuple form: (word, score_modifier)
+score_modifiers = [
+    ('reddit', -0.2),
+    ('subreddit', -0.5),
+    ('The temperature is', -0.4)
+]
+
 
 def load_fasttext_model():
     global fasttext_model
@@ -36,13 +45,26 @@ def get_most_similar_sentence_fasttext(baseline_sentence, other_sentences):
     for sentence in other_sentences:
         sentence_mean = calculate_sentence_mean(sentence)
         similarity = cos_similarity(baseline_sentence_mean, sentence_mean)
-        print("Similarity: '" + sentence + "' = " + str(similarity))
-        if (similarity != 1):
 
-            if (best_similarity < similarity):
+        if similarity != 1:
+            similarity = get_similarity_score_modifier(similarity, sentence)
+            print("Similarity: '" + sentence + "' = " + str(similarity))
+
+            if best_similarity < similarity:
                 best_similarity = similarity
                 best_sentence = sentence
     return best_sentence
+
+
+def get_similarity_score_modifier(base_similarity, sentence):
+    new_similarity = base_similarity
+
+    for score_tuple in score_modifiers:
+        if score_tuple[0] in sentence:
+            new_similarity = base_similarity + score_tuple[1]
+            print('Similarity of \' ' + sentence + '\' modified by ' + str(score_tuple[1]))
+
+    return new_similarity
 
 # a = "How are you doing?"
 # b = "I'm doing great"

@@ -71,14 +71,14 @@ async def msg_recieved_handle(event):
 
 
 message1 = 'What\'s the current temperature?'
-message2 = 'Is it freezing?'
+message2 = 'Would you call it warm?'
 reply_1 = ''
 reply_2 = ''
 message_bye = 'Bye'
 
-temperature = 80
-temperature_decrease_amount = 2
-loop_desired_count = 2
+temperature = 30
+temperature_decrease_amount = 1
+loop_desired_count = 60
 
 add_attribute_to_knowledge_base('weather_temp', temperature)
 

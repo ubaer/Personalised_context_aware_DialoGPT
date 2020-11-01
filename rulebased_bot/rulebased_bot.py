@@ -99,7 +99,7 @@ def check_message_intent(message):
             current_weather_temp = request_weather_information()[1]
 
             response = random.sample(responses[matched_intent], 1)[0]
-            reply_message = str(response) + str(current_weather_temp) + ' F'
+            reply_message = str(response) + str(current_weather_temp) + ' C'
         else:
             # todo instead of random use history of send messages to pick one that isn't used yet
             reply_message = str(random.sample(responses[matched_intent], 1)[0])
