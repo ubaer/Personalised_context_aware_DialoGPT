@@ -213,10 +213,18 @@ def get_current_chat_id():
     return chat_id
 
 
-def insert_chat_history_message(chat_id, sender, injected, message):
+def insert_chat_history_message(chat_id, sender, injected, message, default_properties):
     with open("database/insert_statements/insert_chat_history_message") as insert_query:
         query = insert_query.readlines()[0]
-        execute_mysql_insert_query(query, (chat_id, sender, injected, message))
+        print("default blah: " + str(default_properties))
+        if default_properties == "True":
+            print("yikes")
+            default_properties = 1
+        else:
+            print("noikes")
+            default_properties = 0
+        print("ay: " + str(default_properties))
+        execute_mysql_insert_query(query, (chat_id, sender, injected, message, default_properties))
 
 
 def insert_user_profile(key, value):

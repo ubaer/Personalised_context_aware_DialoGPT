@@ -44,7 +44,8 @@ def add_inject_message():
             if user_message == "":
                 user_message = None
             else:
-                insert_chat_history_message(current_chat_id, 'user', '1', user_message)
+                # Injected messages never occur if default_properties are enabled.
+                insert_chat_history_message(current_chat_id, 'user', '1', user_message, False)
 
             bot_message = request.data.get('bot_message', '')
             if bot_message == "":
@@ -52,7 +53,7 @@ def add_inject_message():
             else:
                 if bot_message in user_profile_messages:
                     expect_user_information = user_profile_messages[bot_message]
-                insert_chat_history_message(current_chat_id, 'bot', '1', bot_message)
+                insert_chat_history_message(current_chat_id, 'bot', '1', bot_message, False)
                 updater.bot.send_message(chat_id=active_telegram_chat_id, text=bot_message)
 
             set_credentials()
@@ -81,7 +82,9 @@ def add_message_to_history():
         sender = request.data.get('sender', '')
         injected = request.data.get('injected', '')
         message = request.data.get('message', '')
-        insert_chat_history_message(current_chat_id, sender, injected, message)
+        default_properties = request.data.get('default_properties', '')
+
+        insert_chat_history_message(current_chat_id, sender, injected, message, default_properties)
         if expect_user_information != None:
             user_profile_options[expect_user_information](message)
     return ""

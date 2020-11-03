@@ -102,24 +102,32 @@ def message(self, update, context):
     # Parse parameters
     num_samples = self.config.getint('decoder', 'num_samples')
     max_turns_history = self.config.getint('decoder', 'max_turns_history')
+    default_properties = self.config.getboolean('decoder', 'default_properties')
+
     if 'turns' not in context.chat_data:
         context.chat_data['turns'] = []
     turns = context.chat_data['turns']
 
     user_message = update.message.text
-    add_message_to_chat_history('user', 0, user_message)
+    add_message_to_chat_history('user', 0, user_message, default_properties)
 
     if user_message.lower() == 'bye':
         # Restart chat
         context.chat_data['turns'] = []
         update.message.reply_text("Bye")
-        add_message_to_chat_history('bot', 0, "Bye")
+        add_message_to_chat_history('bot', 0, "Bye", default_properties)
         new_chat()
         return None
 
-    rule_based_response = check_message_intent(user_message.lower())
+    if default_properties:
+        print("DEFAULT PROPERTIES ARE ACTIVE")
+        max_turns_history = 2
+        rule_based_response = ""
+        num_samples = 1
 
-    # If
+    else:
+        rule_based_response = check_message_intent(user_message.lower())
+
     if rule_based_response is "":
         if max_turns_history == 0:
             # If you still get different responses then set seed
@@ -133,7 +141,7 @@ def message(self, update, context):
         logger.info(f"{update.effective_message.chat_id} - Bot >>> {bot_message}")
 
         update.message.reply_text(bot_message)
-        add_message_to_chat_history('bot', 0, bot_message)
+        add_message_to_chat_history('bot', 0, bot_message, default_properties)
 
 
 def error(update, context):

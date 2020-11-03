@@ -8,6 +8,8 @@ import scipy.spatial.distance
 score_modifiers = [
     ('reddit', -0.2),
     ('subreddit', -0.5),
+    ('upvote', -0.2),
+    ('downvote', -0.2),
     ('The temperature is', -0.4)
 ]
 

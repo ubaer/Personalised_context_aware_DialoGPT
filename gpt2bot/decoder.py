@@ -6,10 +6,12 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
+
 def set_seed(seed):
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
+
 
 def top_k_top_p_filtering(logits, top_k=0, top_p=0.0, filter_value=-float('Inf')):
     """ Filter a distribution of logits using top-k and/or nucleus (top-p) filtering
@@ -55,10 +57,11 @@ def sample_sequence(model, tokenizer, context_ids, config):
     with torch.no_grad():
         while True:
             inputs = {'input_ids': generated}
-            outputs = model(**inputs)  # Note: we could also use 'past' with GPT-2/Transfo-XL/XLNet/CTRL (cached hidden-states)
+            outputs = model(
+                **inputs)  # Note: we could also use 'past' with GPT-2/Transfo-XL/XLNet/CTRL (cached hidden-states)
             next_token_logits = outputs[0][:, -1, :] / (temperature if temperature > 0 else 1.)
             filtered_logits = top_k_top_p_filtering(next_token_logits, top_k=top_k, top_p=top_p)
-            if temperature == 0.0: # greedy sampling:
+            if temperature == 0.0:  # greedy sampling:
                 next_token = torch.argmax(filtered_logits, dim=-1).unsqueeze(-1)
             else:
                 next_token = torch.multinomial(F.softmax(filtered_logits, dim=-1), num_samples=1)
@@ -70,6 +73,7 @@ def sample_sequence(model, tokenizer, context_ids, config):
                 # Maximum length reached
                 break
     return generated
+
 
 def select_using_mmi(mmi_model, mmi_tokenizer, candidates, config):
     # Parse parameters
@@ -85,24 +89,30 @@ def select_using_mmi(mmi_model, mmi_tokenizer, candidates, config):
         context_ids = mmi_tokenizer.encode(context)
         context_tensor = torch.tensor(context_ids, dtype=torch.long, device=device)
         loss, _, _ = mmi_model(input_ids=context_tensor, labels=context_tensor)
-        scores.append(-loss.float()) 
+        scores.append(-loss.float())
 
     scores = torch.stack(scores, dim=0)
     # The smaller the loss, the higher must be the probability of selecting it
     winner = torch.multinomial(F.softmax(scores, dim=0), num_samples=1).item()
     return winner
 
+
 def generate_response(model, tokenizer, context, config, mmi_model=None, mmi_tokenizer=None):
     # Parse parameters
     use_mmi = config.getboolean('model', 'use_mmi')
     num_samples = config.getint('decoder', 'num_samples')
     max_length = config.getint('decoder', 'max_length')
+    default_properties = config.getboolean('decoder', 'default_properties')
     seed = config.get('decoder', 'seed')
     seed = int(seed) if seed is not None else None
 
     # Make answers reproducible only if wanted
     if seed is not None:
         set_seed(seed)
+
+    if default_properties:
+        print("DEFAULT PROPERTIES ARE ACTIVE")
+        num_samples = 1
 
     # Generate response
     context_ids = tokenizer.encode(context)
@@ -114,7 +124,7 @@ def generate_response(model, tokenizer, context, config, mmi_model=None, mmi_tok
         text = text[: text.find(tokenizer.eos_token)]
         texts.append(text)
     if use_mmi:
-        assert(num_samples > 1, "MMI requires num_samples > 1")
+        assert (num_samples > 1, "MMI requires num_samples > 1")
         candidates = [context + text for text in texts]
         best_i = select_using_mmi(mmi_model, mmi_tokenizer, candidates, config)
         return [texts[best_i]]

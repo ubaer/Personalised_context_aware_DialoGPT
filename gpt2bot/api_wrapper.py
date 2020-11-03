@@ -9,12 +9,13 @@ def new_chat():
     return request.json()
 
 
-def add_message_to_chat_history(sender, injected, message):
+def add_message_to_chat_history(sender, injected, message, default_properties):
     endpoint = 'http://localhost:5000/add_message_to_history/'
     data = {
         "sender": sender,
         "injected": injected,
-        "message": message
+        "message": message,
+        "default_properties": default_properties
     }
 
     request = requests.post(url=endpoint, data=data)
