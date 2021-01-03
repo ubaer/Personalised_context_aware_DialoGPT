@@ -41,7 +41,7 @@ def cos_similarity(data_1, data_2):
 def get_most_similar_sentence_fasttext(baseline_sentence, other_sentences):
     baseline_sentence_mean = calculate_sentence_mean(baseline_sentence)
     print("Baseline sentence: " + baseline_sentence)
-    best_similarity = 0
+    best_similarity = -1
     best_sentence = ""
 
     for sentence in other_sentences:

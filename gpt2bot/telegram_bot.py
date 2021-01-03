@@ -30,8 +30,10 @@ logger = logging.getLogger(__name__)
 
 def start_command(update, context):
     context.chat_data['turns'] = []
+    active_chat_id = update.message.chat_id
+    print("CHAT ID:" + str(active_chat_id))
     update.message.reply_text(
-        "Just start texting me. Append \"@gif\" for me to generate a GIF. If I'm getting annoying, type \"Bye\"")
+        "Please give the following number to the researcher that guides your experiment:" + str(active_chat_id))
 
 
 def requests_retry_session(

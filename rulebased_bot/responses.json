@@ -1,7 +1,7 @@
 {
   "name_remember": [
     "Your name is ",
-    "You are",
+    "You are ",
     "You told me your name is ",
     "I remember your name being "
   ],
@@ -24,7 +24,7 @@
     ],
     [
       "Great to see you again ",
-      "what's on your mind?"
+      ", what's on your mind?"
     ]
   ],
   "feelings_positive": [
