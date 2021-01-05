@@ -28,8 +28,8 @@ To avoid leakage to API keys the secrets file of this project is not commited. F
     # External APIs
     openweathermap = API_KEY
     ```
- - First run the [restAPI] (https://github.com/ubaer/Personalised_context_aware_DialoGPT/blob/master/rest_api.py)
- - Then run the [main] (https://github.com/ubaer/Personalised_context_aware_DialoGPT/blob/master/main.py)
+ - First run the [restAPI](https://github.com/ubaer/Personalised_context_aware_DialoGPT/blob/master/rest_api.py)
+ - Then run the [main](https://github.com/ubaer/Personalised_context_aware_DialoGPT/blob/master/main.py)
  
 ## Information about modules
 #### Message injection
