@@ -28,7 +28,8 @@ To avoid leakage to API keys the secrets file of this project is not commited. F
     # External APIs
     openweathermap = API_KEY
     ```
- - Run the main of [telegram_bot.py](https://github.com/ubaer/Personalised_context_aware_DialoGPT/blob/master/gpt2bot/telegram_bot.py) in the project main.
+ - First run the [restAPI] (https://github.com/ubaer/Personalised_context_aware_DialoGPT/blob/master/rest_api.py)
+ - Then run the [main] (https://github.com/ubaer/Personalised_context_aware_DialoGPT/blob/master/main.py)
  
 ## Information about modules
 #### Message injection
